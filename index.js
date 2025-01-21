@@ -5,11 +5,16 @@ const app = express();
 const port = 3000;
 
 // Importing data from data files
-const dest = require("./data/destination");
+const destData = require("./data/destination");
+const hotelsData = require("./data/hotels");
 
 // creating a get route for entire destination file
-app.get('./api/destination',(req,res)=>{
-    res.json(dest);
+app.get('/api/destination',(req,res)=>{
+    res.json(destData);
+})
+
+app.get('/api/hotels',(req,res)=>{
+    res.json(hotelsData);
 })
 
 // starting the server and listening to some activity in port 3000

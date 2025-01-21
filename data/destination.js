@@ -30,5 +30,5 @@ const destination =
         popularAttractions: ["Sydney Opera House", "Bondi Beach", "Sydney Harbour Bridge"]
       }
 
-
-]
+];
+module.exports = destination;
