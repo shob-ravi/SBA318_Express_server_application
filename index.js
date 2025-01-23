@@ -5,28 +5,21 @@ const app = express();
 const port = 3000;
 
 // Importing data from data files
-const destData = require("./data/destination");
+
 const hotelsData = require("./data/hotels");
 const activityData = require("./data/activities");
 
-// creating a get route for entire destination file
-app.get('/api/destination',(req,res)=>{
-    res.json(destData);
-})
-// creating a get route for destination ID
-app.get('/api/destination/:id',(req,res)=>{   
-    const destId =  destData.find((d)=> d.id == req.params.id)
-    if (destId) res.json(destId);
-    else next()
-})
+
 
 ///////////////////////////////
 // Routes
 // importing routers in to main index.js file
 const destRoute = require("./routes/destination");
 // Attaching and associating routers to specific url paths
-// app.use('/api/destination',destRoute);
+app.use('/api/destination',destRoute);
 
+// creating a get route for destination ID
+app.use('/api/destination/:id',destRoute);
 
 app.get('/api/hotels',(req,res)=>{
     res.json(hotelsData);
