@@ -10,10 +10,9 @@ const hotelsData = require("./data/hotels");
 const activityData = require("./data/activities");
 
 
-
 ///////////////////////////////
 // Routes
-// importing routers in to main index.js file
+// importing destination routers in to main index.js file
 const destRoute = require("./routes/destination");
 // Attaching and associating routers to specific url paths
 app.use('/api/destination',destRoute);
@@ -21,17 +20,19 @@ app.use('/api/destination',destRoute);
 // creating a get route for destination ID
 app.use('/api/destination/:id',destRoute);
 
-app.get('/api/hotels',(req,res)=>{
-    res.json(hotelsData);
-})
-app.get('/api/activities',(req,res)=>{
-    res.json(activityData);
-})
-// middleware to handle error
-app.use((req,res)=>{
-    res.status(400);
-    res.json({error: "Resource Not found"});
-})
+
+// importing activity routers in to main index.js file
+const activitiesRoute = require("./routes/activities");
+
+// Attaching and associating routers to specific url paths
+app.use('/api/activities',activitiesRoute);
+
+// importing hotels routers in to main index.js file
+const hotelsRoute = require("./routes/hotels");
+
+app.use('/api/hotels',hotelsRoute);
+
+
 // starting the server and listening to some activity in port 3000
 app.listen(port, ()=>{
     console.log('server is running....');
