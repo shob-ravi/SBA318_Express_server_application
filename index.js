@@ -20,6 +20,7 @@ app.use('/api/destination',destRoute);
 // creating a get route for destination ID
 app.use('/api/destination/:id',destRoute);
 
+    
 
 // importing activity routers in to main index.js file
 const activitiesRoute = require("./routes/activities");
