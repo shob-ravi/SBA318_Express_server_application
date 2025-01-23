@@ -43,16 +43,18 @@ router.post('/', (req, res) => {
         popularAttractions: req.body.popularAttractions
     }
     destData.push(tempDest);
-    res.json(destData);
-    res.status(200).send("successfully added");
+    res.status(201).json(tempDest);
+    // res.json(destData);
+    
 
 })
 // patch request
 router.patch('/', (req, res) => {
 
     
-        for (const key in req.body) {
+        for (const key in req.body) {            
              console.log('key' + JSON.stringify(req.body[key].id));
+             
              const index = destData.findIndex(obj => obj.id === req.body[key].id); // Find index of object to replace
              console.log('index'+index);
              if (index !== -1) {
@@ -78,7 +80,7 @@ router.delete('/',(req,res,next)=>{
 
 // middleware to handle error
 router.use((req, res) => {
-    res.status(400);
+    res.status(204);
     res.json({ error: "Resource Not found" });
 })
 

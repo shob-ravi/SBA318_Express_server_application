@@ -9,6 +9,14 @@ const port = 3000;
 const hotelsData = require("./data/hotels");
 const activityData = require("./data/activities");
 
+const error = require("./utilities/error");
+
+// custom middleware
+const requestLogger = (req, res, next) => {
+    console.log(`Incoming Request: [${req.method}] ${req.path}`);
+    next(); // Pass to the next middleware or route handler
+  };
+  app.use(requestLogger);
 
 ///////////////////////////////
 // Routes
@@ -20,7 +28,7 @@ app.use('/api/destination',destRoute);
 // creating a get route for destination ID
 app.use('/api/destination/:id',destRoute);
 
-    
+
 
 // importing activity routers in to main index.js file
 const activitiesRoute = require("./routes/activities");
@@ -32,7 +40,15 @@ app.use('/api/activities',activitiesRoute);
 const hotelsRoute = require("./routes/hotels");
 
 app.use('/api/hotels',hotelsRoute);
-
+// 404 middleware
+app.use((req, res, next) => {
+  next(error(404, "Resource Not Found"));
+});
+// error handling middleware
+app.use((err, req, res, next) => {
+    res.status(err.status || 500);
+    res.json({ error: err.message });
+  });
 
 // starting the server and listening to some activity in port 3000
 app.listen(port, ()=>{
